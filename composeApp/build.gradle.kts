@@ -44,6 +44,9 @@ kotlin {
             implementation(libs.navigator.transitions)
             implementation(libs.navigator.koin)
             implementation(libs.koin.core)
+
+            implementation(libs.money)
+            implementation(libs.kotlinx.datetime)
         }
     }
 }
@@ -64,6 +67,9 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
+    buildFeatures {
+        compose = true
+    }
     buildTypes {
         getByName("release") {
             isMinifyEnabled = false
@@ -72,5 +78,8 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
+    }
+    dependencies {
+        debugImplementation(libs.androidx.ui.tooling)
     }
 }

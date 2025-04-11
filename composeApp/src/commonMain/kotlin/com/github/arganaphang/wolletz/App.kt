@@ -13,22 +13,24 @@ import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import cafe.adriel.voyager.navigator.LocalNavigator
+import cafe.adriel.voyager.navigator.currentOrThrow
 import cafe.adriel.voyager.navigator.tab.CurrentTab
 import cafe.adriel.voyager.navigator.tab.LocalTabNavigator
 import cafe.adriel.voyager.navigator.tab.Tab
 import cafe.adriel.voyager.navigator.tab.TabNavigator
+import com.github.arganaphang.wolletz.ui.screen.addtransaction.AddTransactionScreen
 import com.github.arganaphang.wolletz.ui.screen.main.DashboardTab
 import com.github.arganaphang.wolletz.ui.screen.main.HomeTab
 import com.github.arganaphang.wolletz.ui.screen.main.SettingTab
 import com.github.arganaphang.wolletz.ui.theme.AppTheme
-import org.jetbrains.compose.ui.tooling.preview.Preview
 
-@Preview
 @Composable
 fun App() {
     AppTheme {
         TabNavigator(HomeTab) {
             val tabNavigator = LocalTabNavigator.current
+            val navigator = LocalNavigator.currentOrThrow
             Scaffold(
                 floatingActionButton = {
                     AnimatedVisibility(
@@ -37,7 +39,10 @@ fun App() {
                         exit = scaleOut(),
                     ) {
                         FloatingActionButton(
-                            onClick = { println("Clicked!") },
+                            onClick = {
+                                println("CHANGE SCREEN")
+                                navigator.parent?.push(AddTransactionScreen())
+                            },
                         ) {
                             Icon(Icons.Rounded.Add, "Floating action button.")
                         }
